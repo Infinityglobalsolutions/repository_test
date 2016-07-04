@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<!-- Top level Menu -->
+		<menuitem id="menu_clinic" name="Clinic" />
+		<!-- First level menu -->
+		<menuitem id="menu_doctor" name="Doctor" parent="menu_clinic" />
+		<menuitem id="menu_patient" name="Patient" parent="menu_clinic" />
+		<menuitem id="menu_appointment" name="Appointment" parent="menu_clinic" />
+		<menuitem id="menu_medicine" name="Medicine" parent="menu_clinic" />
+
+		<record id="view_doctor_form" model="ir.ui.view">
+			<field name="name">Doctor Form</field>
+			<field name="model">clinic.doctor</field>
+			<field name="arch" type="xml">
+				<form string="Doctor" version="7.0">
+					<sheet>
+						<group>
+							<field name="name" />
+							<field name="specialist" />
+							<field name="address" />
+							<field name="phoneno" />
+							<field name="active" />
+							<field name="appnum" widget="one2many_list" colspan="4" />
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="view_doctor_tree" model="ir.ui.view">
+			<field name="name">Doctor Tree</field>
+			<field name="model">clinic.doctor</field>
+			<field name="arch" type="xml">
+				<tree string="doctor">
+					<field name="name" />
+					<field name="specialist" />
+					<field name="address" />
+					<field name="phoneno" />
+					<field name="no_apps"/>
+					<field name="active" />
+				</tree>
+			</field>
+		</record>
+
+		<!-- Action -->
+		<record id="action_doctor_view" model="ir.actions.act_window">
+			<field name="name">Doctor</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">clinic.doctor</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="view_doctor_tree" />
+		</record>
+
+		<menuitem id="menu_doctor_2" name="Doctor" parent="menu_doctor"
+			action="action_doctor_view" />
+		<!-- patient -->
+
+		<record id="view_patient_form" model="ir.ui.view">
+			<field name="name">Paitnet Form</field>
+			<field name="model">clinic.patient</field>
+			<field name="arch" type="xml">
+				<form string="Patient" version="7.0">
+					<sheet>
+						<group>
+							<field name="name" />
+							<field name="nrc" />
+							<field name="sex" />
+							<field name="age" />
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+
+		<record id="view_patient_tree" model="ir.ui.view">
+			<field name="name">Patient Tree</field>
+			<field name="model">clinic.patient</field>
+			<field name="arch" type="xml">
+				<tree string="patient">
+					<field name="name" />
+					<field name="nrc" />
+					<field name="sex" />
+					<field name="age" />
+				</tree>
+			</field>
+		</record>
+
+		<record id="action_patient_view" model="ir.actions.act_window">
+			<field name="name">Patient</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">clinic.patient</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="view_patient_tree" />
+		</record>
+
+		<menuitem id="menu_patient_2" name="Patient" parent="menu_patient"
+			action="action_patient_view" />
+
+
+		<!-- appointment -->
+
+		<record id="view_appointment_form" model="ir.ui.view">
+			<field name="name">Appointment Form</field>
+			<field name="model">clinic.appointment</field>
+			<field name="arch" type="xml">
+				<form string="Appointment" version="7.0">
+					<header>
+						<button name="confirm" string="Confirm Appointment" states="book"
+							type="object" />
+						<button name="cancel" string="Cancel Appointment" states="confirm"
+							type="object" />
+						<field name="state" widget="statusbar" statusbar_visible="book,confirm,cancel" />
+					</header>
+					<sheet>
+						<group>
+							<field name="appnum" />
+							<field name="appdate" />
+							<field name="doctor_id" />
+							<notebook colspan="2">
+								<page string="Patient Particular">
+									<group>
+										<field name="patientname" />
+										<field name="patientnrc" />
+										<field name="sex" />
+										<field name="age"/>
+									</group>
+								</page>
+							</notebook>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+
+		<record id="view_appointment_tree" model="ir.ui.view">
+			<field name="name">Appointment Tree</field>
+			<field name="model">clinic.appointment</field>
+			<field name="arch" type="xml">
+				<tree string="appointment">
+					<field name="appnum" />
+					<field name="appdate" />
+					<field name="doctor_id" />
+					<field name="patientname" />
+					<field name="state" />
+				</tree>
+			</field>
+		</record>
+
+		<record id="action_appointment_view" model="ir.actions.act_window">
+			<field name="name">Appointment</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">clinic.appointment</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="view_appointment_tree" />
+		</record>
+
+		<menuitem id="menu_appointment_2" name="Appointment" parent="menu_appointment"
+			action="action_appointment_view" />
+
+		<record id="view_medicine_form_inherit" model="ir.ui.view">
+			<field name="name">medicine.product.formt</field>
+			<field name="model">product.template</field>
+			<field name="inherit_id" ref="product.product_template_only_form_view" />			
+			<field name="arch" type="xml">
+			
+					<xpath expr="//notebook/page/group/group[@name='group_general']" position="after">
+						<group>
+							<field name="expireDate" />
+							<field name="code" />
+							<field name="is_medicine" />
+						</group>
+					</xpath>	
+				
+				
+			</field>
+		</record>
+		
+		<record id="open_view_medicine_list" model="ir.actions.act_window">
+			<field name="name">Medicines</field>
+			<field name="res_model">product.template</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">kanban,tree,form</field>
+			<field name="domain">[('is_medicine','=',True)]</field>
+			<field name="context">{}</field>
+		</record>
+
+		<menuitem id="menu_medicine2" name="Medicine" parent="menu_medicine"
+			action="open_view_medicine_list" />
+	</data>
+</openerp>

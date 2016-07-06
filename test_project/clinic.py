@@ -9,6 +9,7 @@ from openerp.exceptions import ValidationError
 
 class doctor(models.Model):
     # this is table name
+    # this is table name name
     _name = "clinic.doctor"
     _description = "Clnic Doctor"
     _order = "name"

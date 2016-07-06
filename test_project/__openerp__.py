@@ -12,7 +12,7 @@ Clinic Management module.
 
     """,
     'author': 'Development Team',
-    'website': 'http://www.dev.com',
+    'website': 'http://www.devs.com',
     'images': [],
     'depends': ['base','product'],
     'data': [

@@ -1,0 +1,134 @@
+<openerp>
+	<data>
+
+		<template id="invoice_report_demo" inherit_id="account.report_invoice_document">
+
+			<!-- remove customer address -->
+			<xpath expr="//div[@class='row']//div[@class='col-xs-5 col-xs-offset-7']"
+				position="replace">
+
+			</xpath>
+
+
+			<!-- remove invoice no and add invoice info to right -->
+			<xpath expr="//div[@class='page']//h2" position="replace">
+				<div class="row">
+					<div class="col-xs-7">
+						<br />
+						<br />
+						<h1>
+							<span
+								t-if="o.type == 'out_invoice' and (o.state == 'open' or o.state == 'paid')">
+								<b style="font-size:175%;">INVOICE</b>
+							</span>
+							<span t-if="o.type == 'out_invoice' and o.state == 'proforma2'">
+								<b>PRO-FORMA</b>
+							</span>
+							<span t-if="o.type == 'out_invoice' and o.state == 'draft'">
+								<b>Draft Invoice</b>
+							</span>
+							<span t-if="o.type == 'out_invoice' and o.state == 'cancel'">
+								<b>Cancelled Invoice</b>
+							</span>
+							<span t-if="o.type == 'out_refund'">
+								<b>Refund</b>
+							</span>
+							<span t-if="o.type == 'in_refund'">
+								<b>Vendor Refund</b>
+							</span>
+							<span t-if="o.type == 'in_invoice'">
+								<b>Vendor Bill</b>
+							</span>
+						</h1>
+					</div>
+					<div class="col-xs-4 col-xs-offset-1">
+						<p>
+							Biz Reg No.
+							<br />
+							GST Reg No.
+						</p>
+						<p>
+							<table>
+								<tr t-if="o.number">
+									<td class="text-left"> INVOICE NO : </td>
+									<td class="text-left">
+										<p t-field="o.number"></p>
+									</td>
+								</tr>
+								<tr t-if="o.date_invoice">
+									<td class="text-left"> INVOICE DATE : </td>
+									<td class="text-left">
+										<p t-field="o.date_invoice"></p>
+									</td>
+								</tr>
+								<tr t-if="o.date_due">
+									<td class="text-left"> DUE DATE : </td>
+									<td class="text-left">
+										<p t-field="o.date_due"></p>
+									</td>
+								</tr>
+								<tr t-if="o.origin">
+									<td class="text-left"> Order No : </td>
+									<td class="text-left">
+										<p t-field="o.origin"></p>
+									</td>
+								</tr>
+							</table>
+						</p>
+					</div>
+				</div>
+
+			</xpath>
+
+
+			<!-- remove original invoice info and add break line -->
+			<xpath expr="//div[@class='page']//div[@class='row mt32 mb32']"
+				position="replace">
+				<br />
+			</xpath>
+
+
+			<!-- change Price to 'Amount(SGD)' in table -->
+			<xpath expr="//table[@class='table table-condensed']//thead//tr//th[6]"
+				position="replace">
+
+				<th class="text-right">Amount (SGD)</th>
+
+			</xpath>
+			
+			
+
+			<!-- add Remark: -->
+			<xpath expr="//p[@t-if='o.comment']" position="before">					
+					<div class="row">
+					<div style="display: block; position:absolute; left: 20px;  width: 100%; vertical-align: baseline;
+							background: transparent; ">
+						<p>Remarks</p>
+						<p t-if="o.payment_term_id">
+							<span t-field="o.payment_term_id.note" />
+						</p>
+						<p>
+							cheque - please make your payment to
+							<br />
+							<b>Infinity Global Solutions Ptd. Ltd.</b>
+							<br />
+							Bank Remittance To
+							<br />
+							SGD#__________________
+							<br />
+							USD#__________________
+						</p>
+					</div>
+				</div>
+				
+			</xpath>
+
+		
+			<!-- -->
+			<xpath expr="//div[@class='page']/p[@t-if='o.payment_term_id']" position="replace">
+			</xpath>
+
+		</template>
+
+	</data>
+</openerp>

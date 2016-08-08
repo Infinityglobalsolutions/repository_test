@@ -1,0 +1,95 @@
+<openerp>
+	<data>
+		<template id="custom_footer_layout" inherit_id="report.external_layout_footer">
+
+			<xpath expr="//div[@class='text-center']" position="replace">
+				<div class="footer">
+					<!-- <div class="row">					
+						<div style="float:left;left:30px;top:570px;width:250px">
+							<p>Remarks</p>
+							<p t-if="o.payment_term_id">
+								<span t-field="o.payment_term_id.note" />
+							</p>
+							<p>
+								cheque - please make your payment to
+								<br />
+								<b>Infinity Global Solutions Ptd. Ltd.</b>
+								<br />
+								Bank Remittance To
+								<br />
+								SGD#__________________
+								<br />
+								USD#__________________
+							</p>
+						</div>
+					</div> -->
+					<div class="text-center" style="border-top: 1px solid black;">
+						<!--  for other report  -->
+						<t t-if="o._table != 'account_invoice'">
+							<ul t-if="not company.custom_footer" class="list-inline">
+								<li t-if="company.phone">
+									Phone:
+									<span t-field="company.phone" />
+								</li>
+
+								<li t-if="company.fax and company.phone">&amp;bull;</li>
+								<li t-if="company.fax">
+									Fax:
+									<span t-field="company.fax" />
+								</li>
+
+								<li
+									t-if="company.email and company.fax or company.email and company.phone">&amp;bull;</li>
+								<li t-if="company.email">
+									Email:
+									<span t-field="company.email" />
+								</li>
+
+								<li
+									t-if="company.website and company.email or company.website and company.fax or company.website and company.phone">&amp;bull;</li>
+								<li t-if="company.website">
+									Website:
+									<span t-field="company.website" />
+								</li>
+							</ul>
+						</t>
+						<!--  for only invoice report  -->
+						<t t-if="o._table == 'account_invoice'">
+							<p>
+								This is computer generated document and required no signature.
+								<br />
+								Validity of invoice is subject to valid payment under payment
+								term.
+							</p>
+
+						</t>
+						
+						<ul t-if="not company.custom_footer" class="list-inline" name="financial_infos">
+							<li t-if="company.vat">
+								TIN:
+								<span t-field="company.vat" />
+							</li>
+						</ul>
+
+						<t t-if="company.custom_footer">
+							<span t-raw="company.rml_footer" />
+						</t>
+
+						<ul class="list-inline">
+							<li>Page:</li>
+							<li>
+								<span class="page" />
+							</li>
+							<li>/</li>
+							<li>
+								<span class="topage" />
+							</li>
+						</ul>
+					</div>
+				</div>
+			</xpath>
+
+		</template>
+	</data>
+</openerp>
+

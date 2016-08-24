@@ -1,0 +1,16 @@
+<openerp>
+	<data>
+				
+		<!--  change powder by odoo after login-->
+		<template id="custom_footer_layout" inherit_id="web.menu_secondary">
+			<xpath expr="//div[@class='oe_footer']" position="replace">
+				 <div class="oe_footer">
+               		 Powered by <a href="http://www.infinityglobals.com" target="_blank"><span>IGS</span></a>
+            	</div>
+			</xpath>	
+		</template>
+		
+		
+	</data>
+</openerp>
+
